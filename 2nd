@@ -1,0 +1,23 @@
+def rob_linear(nums):
+    """Standard House Robber (Linear) DP solution."""
+    prev, curr = 0, 0
+    for num in nums:
+        prev, curr = curr, max(curr, prev + num)
+    return curr
+
+def rob(nums):
+    """Solves the circular House Robber problem."""
+    if not nums:
+        return 0
+    if len(nums) == 1:
+        return nums[0]
+
+    # Exclude first house OR exclude last house
+    return max(rob_linear(nums[:-1]), rob_linear(nums[1:]))
+
+# Test cases
+nums1 = [2, 3, 2]
+nums2 = [1, 2, 3, 1]
+
+print("The maximum money you can rob is:", rob(nums1))  # Output: 3
+print("The maximum money you can rob is:", rob(nums2))  # Output: 4
