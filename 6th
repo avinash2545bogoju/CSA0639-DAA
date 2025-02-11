@@ -1,0 +1,41 @@
+def gameOfLife(board):
+    m, n = len(board), len(board[0])
+    
+    # Directions to check 8 neighbors
+    directions = [(-1, -1), (-1, 0), (-1, 1), 
+                  (0, -1),         (0, 1), 
+                  (1, -1), (1, 0), (1, 1)]
+
+    # Step 1: Compute next state using encoding
+    for i in range(m):
+        for j in range(n):
+            live_neighbors = 0
+            
+            # Count live neighbors
+            for dr, dc in directions:
+                r, c = i + dr, j + dc
+                if 0 <= r < m and 0 <= c < n and abs(board[r][c]) == 1:
+                    live_neighbors += 1
+            
+            # Apply rules using encoding
+            if board[i][j] == 1 and (live_neighbors < 2 or live_neighbors > 3):
+                board[i][j] = -1  # Mark cell as dying
+            elif board[i][j] == 0 and live_neighbors == 3:
+                board[i][j] = 2   # Mark cell as reviving
+
+    # Step 2: Convert encoded values to final states
+    for i in range(m):
+        for j in range(n):
+            if board[i][j] == -1:
+                board[i][j] = 0
+            elif board[i][j] == 2:
+                board[i][j] = 1
+
+# Test case
+board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+gameOfLife(board)
+print(board)  # Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+
+board = [[1,1],[1,0]]
+gameOfLife(board)
+print(board)  # Output: [[1,1],[1,1]]
