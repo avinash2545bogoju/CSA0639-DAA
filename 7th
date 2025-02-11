@@ -1,0 +1,40 @@
+def gameOfLife(board):
+    m, n = len(board), len(board[0])
+    
+    # Directions for 8 neighbors
+    directions = [(-1, -1), (-1, 0), (-1, 1), 
+                  (0, -1),         (0, 1), 
+                  (1, -1), (1, 0), (1, 1)]
+    
+    # Step 1: Compute next state using bitwise encoding
+    for i in range(m):
+        for j in range(n):
+            live_neighbors = 0
+            
+            # Count live neighbors
+            for dr, dc in directions:
+                r, c = i + dr, j + dc
+                if 0 <= r < m and 0 <= c < n and (board[r][c] & 1):  # Check least significant bit (LSB)
+                    live_neighbors += 1
+            
+            # Apply rules using bitwise encoding
+            if board[i][j] == 1 and (live_neighbors < 2 or live_neighbors > 3):
+                board[i][j] = 1  # Mark as dying (01 → 01)
+            elif board[i][j] == 0 and live_neighbors == 3:
+                board[i][j] = 2  # Mark as reviving (00 → 10)
+            else:
+                board[i][j] |= 2  # Keep current state (either stays alive or stays dead)
+
+    # Step 2: Final state update (decode 2nd bit)
+    for i in range(m):
+        for j in range(n):
+            board[i][j] >>= 1  # Shift right to get new state
+
+# Test cases
+board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+gameOfLife(board)
+print(board)  # Expected: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+
+board = [[1,1],[1,0]]
+gameOfLife(board)
+print(board)  # Expected: [[1,1],[1,1]]
