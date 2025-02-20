@@ -1,0 +1,191 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 1.def demonstrate_lists():\par
+    # 1. An empty list\par
+    empty_list = []\par
+    print("Empty List:", empty_list)\par
+\par
+    # 2. A list with one element\par
+    single_element_list = [1]\par
+    print("Single Element List:", single_element_list)\par
+\par
+    # 3. A list with all identical elements\par
+    identical_elements_list = [7, 7, 7, 7]\par
+    print("Identical Elements List:", identical_elements_list)\par
+\par
+    # 4. A list with negative numbers\par
+    negative_numbers_list = [-5, -1, -3, -2, -4]\par
+    print("Negative Numbers List (Unsorted):", negative_numbers_list)\par
+    print("Negative Numbers List (Sorted):", sorted(negative_numbers_list))\par
+\par
+# Test Cases\par
+def test_lists():\par
+    # Test Case 1\par
+    input_1 = []\par
+    expected_output_1 = []\par
+    assert input_1 == expected_output_1, "Test Case 1 Failed"\par
+\par
+    # Test Case 2\par
+    input_2 = [1]\par
+    expected_output_2 = [1]\par
+    assert input_2 == expected_output_2, "Test Case 2 Failed"\par
+\par
+    # Test Case 3\par
+    input_3 = [7, 7, 7, 7]\par
+    expected_output_3 = [7, 7, 7, 7]\par
+    assert input_3 == expected_output_3, "Test Case 3 Failed"\par
+\par
+    # Test Case 4\par
+    input_4 = [-5, -1, -3, -2, -4]\par
+    expected_output_4 = [-5, -4, -3, -2, -1]\par
+    assert sorted(input_4) == expected_output_4, "Test Case 4 Failed"\par
+\par
+    print("All Test Cases Passed!")\par
+\par
+# Run the functions\par
+demonstrate_lists()\par
+test_lists()\par
+output:\par
+Empty List: []\par
+Single Element List: [1]\par
+Identical Elements List: [7, 7, 7, 7]\par
+Negative Numbers List (Unsorted): [-5, -1, -3, -2, -4]\par
+Negative Numbers List (Sorted): [-5, -4, -3, -2, -1]\par
+All Test Cases Passed!\par
+2.def selection_sort(arr):\par
+    n = len(arr)\par
+    for i in range(n):\par
+        # Find the minimum element in the unsorted region\par
+        min_idx = i\par
+        for j in range(i + 1, n):\par
+            if arr[j] < arr[min_idx]:\par
+                min_idx = j\par
+        # Swap the found minimum element with the first unsorted element\par
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]\par
+    return arr\par
+\par
+# Test Cases\par
+print(selection_sort([5, 2, 9, 1, 5, 6]))  # Output: [1, 2, 5, 5, 6, 9]\par
+print(selection_sort([10, 8, 6, 4, 2]))    # Output: [2, 4, 6, 8, 10]\par
+print(selection_sort([1, 2, 3, 4, 5]))     # Output: [1, 2, 3, 4, 5]\par
+output:\par
+[1, 2, 5, 5, 6, 9]\par
+[2, 4, 6, 8, 10]\par
+[1, 2, 3, 4, 5]\par
+\par
+3.def bubble_sort_optimized(arr):\par
+    n = len(arr)\par
+    for i in range(n):\par
+        swapped = False\par
+        for j in range(0, n - i - 1):\par
+            if arr[j] > arr[j + 1]:\par
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]\par
+                swapped = True\par
+        # If no swaps occurred, the list is already sorted\par
+        if not swapped:\par
+            break\par
+    return arr\par
+\par
+# Test Cases\par
+print(bubble_sort_optimized([64, 25, 12, 22, 11]))  # Output: [11, 12, 22, 25, 64]\par
+print(bubble_sort_optimized([29, 10, 14, 37, 13]))  # Output: [10, 13, 14, 29, 37]\par
+print(bubble_sort_optimized([3, 5, 2, 1, 4]))       # Output: [1, 2, 3, 4, 5]\par
+print(bubble_sort_optimized([1, 2, 3, 4, 5]))       # Output: [1, 2, 3, 4, 5]\par
+print(bubble_sort_optimized([5, 4, 3, 2, 1]))       # Output: [1, 2, 3, 4, 5]\par
+output:\par
+[11, 12, 22, 25, 64]\par
+[10, 13, 14, 29, 37]\par
+[1, 2, 3, 4, 5]\par
+[1, 2, 3, 4, 5]\par
+[1, 2, 3, 4, 5]\par
+\par
+4.def insertion_sort(arr):\par
+    for i in range(1, len(arr)):\par
+        key = arr[i]\par
+        j = i - 1\par
+        while j >= 0 and key < arr[j]:\par
+            arr[j + 1] = arr[j]\par
+            j -= 1\par
+        arr[j + 1] = key\par
+    return arr\par
+\par
+# Test Cases\par
+print(insertion_sort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3]))  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 6, 9]\par
+print(insertion_sort([5, 5, 5, 5, 5]))                 # Output: [5, 5, 5, 5, 5]\par
+print(insertion_sort([2, 3, 1, 3, 2, 1, 1, 3]))        # Output: [1, 1, 1, 2, 2, 3, 3, 3]\par
+output:\par
+[1, 1, 2, 3, 3, 4, 5, 5, 6, 9]\par
+[5, 5, 5, 5, 5]\par
+[1, 1, 1, 2, 2, 3, 3, 3]\par
+\par
+5.def find_kth_missing_positive(arr, k):\par
+    missing_count = 0\par
+    current = 1\par
+    i = 0\par
+    while missing_count < k:\par
+        if i < len(arr) and arr[i] == current:\par
+            i += 1\par
+        else:\par
+            missing_count += 1\par
+        if missing_count < k:\par
+            current += 1\par
+    return current\par
+\par
+# Test Cases\par
+print(find_kth_missing_positive([2, 3, 4, 7, 11], 5))  # Output: 9\par
+print(find_kth_missing_positive([1, 2, 3, 4], 2))      # Output: 6\par
+output:\par
+9\par
+6\par
+\par
+6.def find_peak_element(nums):\par
+    left, right = 0, len(nums) - 1\par
+    while left < right:\par
+        mid = (left + right) // 2\par
+        if nums[mid] < nums[mid + 1]:\par
+            left = mid + 1\par
+        else:\par
+            right = mid\par
+    return left\par
+\par
+# Test Cases\par
+print(find_peak_element([1, 2, 3, 1]))           \par
+print(find_peak_element([1, 2, 1, 3, 5, 6, 4]))  \par
+output:\par
+2\par
+5\par
+\par
+7.def str_str(haystack, needle):\par
+    if not needle:\par
+        return 0\par
+    n, m = len(haystack), len(needle)\par
+    for i in range(n - m + 1):\par
+        if haystack[i:i + m] == needle:\par
+            return i\par
+    return -1\par
+\par
+# Test Cases\par
+print(str_str("sadbutsad", "sad"))  # Output: 0\par
+print(str_str("leetcode", "leeto")) # Output: -1\par
+output:\par
+0\par
+-1\par
+\par
+8.def find_substrings(words):\par
+    result = []\par
+    for i in range(len(words)):\par
+        for j in range(len(words)):\par
+            if i != j and words[i] in words[j]:\par
+                result.append(words[i])\par
+                break\par
+    return result\par
+\par
+# Test Cases\par
+print(find_substrings(["mass", "as", "hero", "superhero"]))  # Output: ["as", "hero"]\par
+print(find_substrings(["leetcode", "et", "code"]))           # Output: ["et", "code"]\par
+print(find_substrings(["blue", "green", "bu"]))              # Output: []\par
+output:\par
+['as', 'hero']\par
+['et', 'code']\par
+[]\par
+}
